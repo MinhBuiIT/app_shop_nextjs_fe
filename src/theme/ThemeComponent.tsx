@@ -13,8 +13,8 @@ import themeConfig from 'src/configs/themeConfig'
 import themeOptions from './ThemeOptions'
 
 // ** Global Styles
-import GlobalStyling from './globalStyles'
 import { Settings } from 'src/contexts/SettingsContext'
+import GlobalStyling from './globalStyles'
 
 interface Props {
   settings: Settings
