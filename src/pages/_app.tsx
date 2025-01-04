@@ -37,6 +37,9 @@ import { useSettings } from 'src/hooks/useSettings'
 import { store } from 'src/stores'
 import ThemeComponent from 'src/theme/ThemeComponent'
 
+//** Views/Layouts
+import UserLayout from 'src/views/layouts/UserLayout'
+
 type ExtendedAppProps = AppProps & {
   Component: NextPage
 }
@@ -77,7 +80,7 @@ export default function App(props: ExtendedAppProps) {
   const { settings } = useSettings()
 
   // Variables
-  const getLayout = Component.getLayout ?? (page => <>{page}</>)
+  const getLayout = Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
 
   const setConfig = Component.setConfig ?? undefined
 

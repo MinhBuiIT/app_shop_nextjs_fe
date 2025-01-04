@@ -34,6 +34,10 @@ import { FacebookIcon, GoogleIcon } from 'src/components/icons'
 import loginDark from '/public/images/login-dark.png'
 import loginLight from '/public/images/login-light.png'
 
+//Custom Hooks
+
+import { useAuth } from 'src/hooks/useAuth'
+
 const SignInContainer = styled(Stack)(({ theme }) => ({
   height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
   minHeight: '100%',
@@ -63,6 +67,7 @@ const initialDataForm: TLoginFormData = {
 }
 const LoginPage: NextPage<TProps> = () => {
   const theme = useTheme()
+  const { login } = useAuth()
   const {
     handleSubmit,
     control,
@@ -75,9 +80,8 @@ const LoginPage: NextPage<TProps> = () => {
   })
   const [isVisibilityPassword, setIsVisibilityPassword] = useState(false)
   const onSubmit = (data: TLoginFormData) => {
-    console.log('data', { data })
+    login(data)
   }
-  console.log('errors', errors)
 
   return (
     <Box
