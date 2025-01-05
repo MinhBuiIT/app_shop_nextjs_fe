@@ -119,6 +119,7 @@ const LoginPage: NextPage<TProps> = () => {
           width={0}
           height={0}
           style={{ width: 'auto', height: '100%', objectFit: 'cover' }}
+          priority={true}
         />
       </Box>
       <SignInContainer

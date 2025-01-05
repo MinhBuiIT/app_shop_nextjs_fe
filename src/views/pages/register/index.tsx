@@ -101,6 +101,7 @@ const LoginPage: NextPage<TProps> = () => {
         }}
       >
         <Image
+          priority={true}
           src={theme.palette.mode === 'light' ? registerLight : registerDark}
           alt='Login-Imag'
           width={0}
