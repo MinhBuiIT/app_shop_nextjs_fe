@@ -5,16 +5,20 @@ import { createContext, ReactNode, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // ** Axios
-import axios from 'axios'
+import axiosInstance from 'src/helper/axios'
 
 // ** Config
 import API_CONFIG from 'src/configs/api'
 import { ACCESS_TOKEN, REFRESH_TOKEN, USER_DATA } from 'src/configs/auth'
 
 // ** Types
-import { getLocalStorage, removeLocalStorage, setLocalStorage } from 'src/helper/storage'
-import { loginApi } from 'src/services/auth'
 import { AuthValuesType, ErrCallbackType, LoginParams, UserDataType } from './types'
+
+// ** Storage
+import { getLocalStorage, removeLocalStorage, setLocalStorage } from 'src/helper/storage'
+
+// ** Services
+import { loginApi, logoutApi } from 'src/services/auth'
 
 // ** Libs
 
@@ -41,20 +45,16 @@ const AuthProvider = ({ children }: Props) => {
 
   // ** Hooks
   const router = useRouter()
+  console.log('AuthProvider')
 
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
       const storedToken = getLocalStorage(ACCESS_TOKEN)
-      console.log('storedToken', storedToken)
 
       setLoading(true)
       if (storedToken) {
-        await axios
-          .get(API_CONFIG.AUTH.ME, {
-            headers: {
-              Authorization: `Bearer ` + storedToken
-            }
-          })
+        await axiosInstance
+          .get(API_CONFIG.AUTH.ME)
           .then(async response => {
             setLoading(false)
 
@@ -70,7 +70,8 @@ const AuthProvider = ({ children }: Props) => {
           })
       } else {
         setLoading(false)
-        if (!router.pathname.includes('login')) {
+
+        if (![`/login`, `/register`].includes(router.pathname)) {
           router.replace('/login')
         }
       }
@@ -103,9 +104,15 @@ const AuthProvider = ({ children }: Props) => {
   }
 
   const handleLogout = () => {
-    setUser(null)
-    removeLocalStorage([USER_DATA, REFRESH_TOKEN, ACCESS_TOKEN])
-    router.push('/login')
+    logoutApi()
+      .then(() => {
+        setUser(null)
+        removeLocalStorage([USER_DATA, REFRESH_TOKEN, ACCESS_TOKEN])
+        router.push('/login')
+      })
+      .catch(() => {
+        console.log('Logout failed')
+      })
   }
 
   const values = {

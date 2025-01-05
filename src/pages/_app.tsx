@@ -38,6 +38,7 @@ import { store } from 'src/stores'
 import ThemeComponent from 'src/theme/ThemeComponent'
 
 //** Views/Layouts
+import { Interceptor } from 'src/helper/axios'
 import UserLayout from 'src/views/layouts/UserLayout'
 
 type ExtendedAppProps = AppProps & {
@@ -118,26 +119,28 @@ export default function App(props: ExtendedAppProps) {
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
 
-      <AuthProvider>
-        <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
-          <SettingsConsumer>
-            {({ settings }) => {
-              return (
-                <ThemeComponent settings={settings}>
-                  <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                    <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard} authGuard={authGuard}>
-                      {getLayout(<Component {...pageProps} />)}
-                    </AclGuard>
-                  </Guard>
-                  <ReactHotToast>
-                    <Toaster position={settings.toastPosition} toastOptions={toastOptions} />
-                  </ReactHotToast>
-                </ThemeComponent>
-              )
-            }}
-          </SettingsConsumer>
-        </SettingsProvider>
-      </AuthProvider>
+      <Interceptor>
+        <AuthProvider>
+          <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
+            <SettingsConsumer>
+              {({ settings }) => {
+                return (
+                  <ThemeComponent settings={settings}>
+                    <Guard authGuard={authGuard} guestGuard={guestGuard}>
+                      <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard} authGuard={authGuard}>
+                        {getLayout(<Component {...pageProps} />)}
+                      </AclGuard>
+                    </Guard>
+                    <ReactHotToast>
+                      <Toaster position={settings.toastPosition} toastOptions={toastOptions} />
+                    </ReactHotToast>
+                  </ThemeComponent>
+                )
+              }}
+            </SettingsConsumer>
+          </SettingsProvider>
+        </AuthProvider>
+      </Interceptor>
     </Provider>
   )
 }

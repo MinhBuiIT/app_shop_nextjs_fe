@@ -1,9 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// ** React Imports
+// ** React Imports & Next
 import { useRouter } from 'next/router'
 import { ReactElement, ReactNode, useEffect } from 'react'
+
+// ** Configs
 import { ACCESS_TOKEN } from 'src/configs/auth'
+
+// ** Helper
 import { getLocalStorage } from 'src/helper/storage'
+
+// ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
 
 interface AuthGuardProps {
