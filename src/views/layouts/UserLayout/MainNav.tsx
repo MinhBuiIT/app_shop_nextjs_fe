@@ -1,7 +1,8 @@
 'use client'
 
-import { AppBar, IconButton, Toolbar, Typography, useTheme } from '@mui/material'
+import { AppBar, Box, IconButton, Toolbar, Typography, useTheme } from '@mui/material'
 import IconifyIcon from 'src/components/Icon'
+import MenuProfile from 'src/components/menu-profile'
 
 type TProps = {
   drawerWidth: number
@@ -33,24 +34,29 @@ function MainNav({
         })
       }}
     >
-      <Toolbar>
-        {!isMenuHidden && (
-          <IconButton
-            onClick={() => setIsNavSidebarOpen(!isNavSidebarOpen)}
-            sx={{
-              color:
-                theme.palette.mode === 'light'
-                  ? theme.palette.customColors.lightPaperBg
-                  : theme.palette.primary.contrastText
-            }}
-          >
-            <IconifyIcon icon={'material-symbols:menu-rounded'} />
-          </IconButton>
-        )}
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Box>
+          {!isMenuHidden && (
+            <IconButton
+              onClick={() => setIsNavSidebarOpen(!isNavSidebarOpen)}
+              sx={{
+                color:
+                  theme.palette.mode === 'light'
+                    ? theme.palette.customColors.lightPaperBg
+                    : theme.palette.primary.contrastText
+              }}
+            >
+              <IconifyIcon icon={'material-symbols:menu-rounded'} />
+            </IconButton>
+          )}
 
-        <Typography variant='h6' noWrap component='div' color={'inherit'}>
-          Dashboard
-        </Typography>
+          <Typography variant='h6' noWrap component='div' color={'inherit'}>
+            Dashboard
+          </Typography>
+        </Box>
+        <Box>
+          <MenuProfile />
+        </Box>
       </Toolbar>
     </AppBar>
   )
