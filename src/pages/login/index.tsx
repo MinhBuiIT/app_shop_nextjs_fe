@@ -8,5 +8,7 @@ const Login: NextPage<TProps> = () => {
 }
 
 Login.getLayout = page => <BlankLayout>{page}</BlankLayout>
+Login.guestGuard = true
+Login.authGuard = false
 
 export default Login

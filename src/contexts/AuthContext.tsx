@@ -47,8 +47,8 @@ const AuthProvider = ({ children }: Props) => {
       const storedToken = getLocalStorage(ACCESS_TOKEN)
       console.log('storedToken', storedToken)
 
+      setLoading(true)
       if (storedToken) {
-        setLoading(true)
         await axios
           .get(API_CONFIG.AUTH.ME, {
             headers: {
