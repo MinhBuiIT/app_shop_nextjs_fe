@@ -45,7 +45,6 @@ const AuthProvider = ({ children }: Props) => {
 
   // ** Hooks
   const router = useRouter()
-  console.log('AuthProvider')
 
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
@@ -82,6 +81,7 @@ const AuthProvider = ({ children }: Props) => {
   }, [])
 
   const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
+    setLoading(true)
     loginApi({ email: params.email, password: params.password })
       .then(response => {
         const { access_token, refresh_token } = response.data.data
@@ -100,6 +100,9 @@ const AuthProvider = ({ children }: Props) => {
 
       .catch(err => {
         if (errorCallback) errorCallback(err)
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }
 

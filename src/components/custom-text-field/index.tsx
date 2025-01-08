@@ -1,4 +1,3 @@
-'use client'
 import { styled, TextField, TextFieldProps } from '@mui/material'
 
 const StyleTextField = styled(TextField)<TextFieldProps>(({ theme }) => {

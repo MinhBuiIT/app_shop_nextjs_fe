@@ -1,4 +1,3 @@
-'use client'
 import { Box, Drawer, IconButton, List, Toolbar } from '@mui/material'
 import React, { useEffect } from 'react'
 import IconifyIcon from 'src/components/Icon'
