@@ -4,6 +4,8 @@ import LoginPage from 'src/views/pages/login'
 
 type TProps = {}
 const Login: NextPage<TProps> = () => {
+  console.log('Login page')
+
   return <LoginPage />
 }
 

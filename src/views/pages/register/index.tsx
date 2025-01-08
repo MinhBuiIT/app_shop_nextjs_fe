@@ -1,5 +1,3 @@
-'use client'
-
 // MUI Library
 import {
   Box,

@@ -6,10 +6,14 @@ import { Avatar, Box, Divider, IconButton, Menu, MenuItem, Tooltip } from '@mui/
 
 // ** Custom Hooks
 import Image from 'next/image'
+import IconifyIcon from 'src/components/Icon'
 import { useAuth } from 'src/hooks/useAuth'
-import IconifyIcon from '../Icon'
+
+// ** i18n
+import { useTranslation } from 'react-i18next'
 
 const MenuProfile = () => {
+  const { t } = useTranslation()
   const { user, logout } = useAuth()
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -24,7 +28,7 @@ const MenuProfile = () => {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title='Account settings'>
+        <Tooltip title={t('Account')}>
           <IconButton
             onClick={handleClick}
             size='small'
@@ -82,7 +86,7 @@ const MenuProfile = () => {
       >
         <MenuItem onClick={handleClose}>{user?.email}</MenuItem>
         <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+          <Avatar /> {t('Profile')}
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <Avatar /> My account

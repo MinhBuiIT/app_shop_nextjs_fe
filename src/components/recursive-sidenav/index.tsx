@@ -1,5 +1,3 @@
-'use client'
-
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import IconifyIcon from '../Icon'
 

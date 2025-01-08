@@ -1,8 +1,10 @@
-'use client'
-
 import { AppBar, Box, IconButton, Toolbar, Typography, useTheme } from '@mui/material'
 import IconifyIcon from 'src/components/Icon'
-import MenuProfile from 'src/components/menu-profile'
+import LanguageDropdown from '../components/language-dropdown'
+import MenuProfile from '../components/menu-profile'
+import ModeTheme from '../components/mode-theme'
+
+// ** Hooks i18n
 
 type TProps = {
   drawerWidth: number
@@ -54,7 +56,11 @@ function MainNav({
             Dashboard
           </Typography>
         </Box>
-        <Box>
+
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <LanguageDropdown />
+          <ModeTheme />
+
           <MenuProfile />
         </Box>
       </Toolbar>
